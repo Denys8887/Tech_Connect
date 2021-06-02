@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section-->
+<section
+        style="background: url({% static 'img/head.jpg' %}); background-size: cover; background-position: center center"
+        class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <h1>Discover the world of technlogy</h1>
+            </div>
+</section>
+<!-- Intro Section-->
+<section class="intro">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <h2 class="h3">Share. Connect. Discover</h2>
+                <p class="text-big"><strong>Share</strong> news, improvements, updates from the world of technology.
+                    <strong>Connect </strong>with
+                    people, discuss, find favorite authors and share your opinion.<strong>Discover </strong> ideas,
+                    technological tips and tricks and simply interesting information.
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="featured-posts no-padding-top">
+    <div class="container">
+        <!-- Post-->
+        {% for obj in object_list %}
+        <div class="row d-flex align-items-stretch">
+            {% if not forloop.first and not forloop.last %}
+            <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+            {% endif %}
+            <div class="text col-lg-7">
+                <div class="text-inner d-flex align-items-center">
+                    <div class="content">
+                        <header class="post-header">
+                            <div class="category">
+                                {% for cat in obj.categories.all %}
+                                <a href="#">{{ cat }}</a>
+                                {% endfor %}
+                            </div>
+                            <a href="{% url 'post-list' %}">
+                                <h2 class="h4">{{ obj.title }}</h2>
+                            </a>
+                        </header>
+                        <p>{{ obj.overview|linebreaks|truncatechars:200 }}</p>
+                        <footer class="post-footer d-flex align-items-center"><a href="#"
+                                                                                 class="author d-flex align-items-center flex-wrap">
+                            <div class="avatar"><img src="{{ obj.author.profile_picture.url }}" alt="..."
+                                                     class="img-fluid"></div>
+                            <div class="title"><span>{{ obj.author }}</span></div>
+                        </a>
+                            <div class="date"><i class="icon-clock"></i> {{ obj.timestamp|timesince }} ago</div>
+                            <div class="comments"><i class="icon-comment"></i>{{ obj.comment_count }}</div>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.first or forloop.last %}
+            <div class="image col-lg-5"><img src="{{ obj.thumbnail.url }}" alt="..."></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- Divider Section-->
+<section
+        style="background: url({% static 'img/divider-bg.jpg' %}); background-size: cover; background-position: center bottom"
+        class="divider">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h2>Subscribe to the website for unlimited access to Blogs, Comments and Create your own post! </h2>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+<!-- Newsletter Section-->
+<section class="newsletter no-padding-top">
+    <div class="container">
+        <div class="col-md-6">
+            <h2>Subscribe to Newsletter</h2>
+            <p class="text-big"></p>
+        </div>
+        <div class="col-md-8">
+            <div class="form-holder">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form }}
+                        <button type="submit" class="submit">Signup</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Gallery Section-->
+<section class="gallery no-padding">
+    <div class="row">
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item"><a href="img/image1.jpg" data-fancybox="gallery" class="image"><img
+                    src="{% static 'img/image1.jpg' %}" alt="..." class="img-fluid">
+            </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item"><a href="img/image.jpg" data-fancybox="gallery" class="image"><img
+                    src="{% static 'img/image.jpg' %}" alt="..." class="img-fluid">
+            </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item"><img
+                    src="{% static 'img/gallery-3.jpg' %}" alt="..." class="img-fluid">
+            </a></div>
+        </div>
+        <div class="mix col-lg-3 col-md-3 col-sm-6">
+            <div class="item"><img
+                    src="{% static 'img/gallery-4.jpg' %}" alt="..." class="img-fluid">
+            </a></div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

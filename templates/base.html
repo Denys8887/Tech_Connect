@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+     {% load static %}
+    <link rel="icon" type="image/jpg"  href="{% static 'img/Fingerprint Mark.jpg' %} ">
+</head>
+{% include "head.html" %}
+
+<body>
+
+    {% include 'header.html' %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li><h6>{% if message.tags %}{% endif %}{{ message }}</h6></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% include 'footer.html' %}
+    {% include 'scripts.html' %}
+
+</body>
+
+</html>

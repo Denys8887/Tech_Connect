@@ -1,0 +1,64 @@
+    <header class="header">
+      <!-- Main Navbar-->
+      <nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+          <div class="search-area-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn"><i class="icon-close"></i></div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                <form action="{% url 'search' %}">
+                  <div class="form-group">
+                    <input type="search" name="q" id="search" placeholder="What are you looking for?">
+                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <!-- Navbar Brand -->
+            {% load static %}
+          <div class="navbar-header d-flex align-items-center justify-content-between">
+                     <a href="/" class="navbar-brand"><img src="{% static 'img/Fingerprint Mark.jpg' %}" width="30" height="30" >
+            <!-- Navbar Brand --><a href="/" class="navbar-brand">Tech Connect</a>
+
+            <!-- Toggle Button-->
+            <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+          </div>
+          <!-- Navbar Menu -->
+          {% if user.is_authenticated %}
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a href="/" class="nav-link ">Home</a>
+              </li>
+              <li class="nav-item"><a href="/blog" class="nav-link active ">Blog</a>
+              </li>
+              <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link ">Create</a>
+              </li>
+
+              {% endif %}
+               <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+                    <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+                        {% csrf_token %}
+                        <button id="signOutBtn" type="submit">Logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signupuser' %}">Sign Up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+                </li>
+            {% endif %}
+            </ul>
+            <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+
+          </div>
+        </div>
+      </nav>
+    </header>

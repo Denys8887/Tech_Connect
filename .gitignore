@@ -1,0 +1,7 @@
+env
+**/*.pyc
+**/__pycache__
+media
+static
+# Project exclude paths
+/venv/
